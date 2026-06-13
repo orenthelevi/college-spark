@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spark
 
-## Getting Started
+Spark is a college major discovery app designed to help students choose what to study based on genuine intellectual curiosity, not just career outcomes. It offers honest, zero-hype previews of what it actually feels like to think inside 28 different fields.
 
-First, run the development server:
+## Local Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the repository and install dependencies:**
+   ```bash
+   git clone <repository-url>
+   cd spark
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Configure environment variables:**
+   Create a `.env.local` file in the root directory and add your Anthropic API key to enable the AI-generated "Go Deeper" feature:
+   ```env
+   ANTHROPIC_API_KEY=sk-ant-api03-...
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding a New Major
 
-## Learn More
+All major data lives in `/data/majors.ts`. To add a new one, append an object matching the `Major` interface to the `majors` array:
 
-To learn more about Next.js, take a look at the following resources:
+- `id`: Unique string identifier
+- `slug`: URL-friendly string (e.g., `"computer-science"`)
+- `name`: Display name (e.g., `"Computer Science"`)
+- `tagline`: One short line capturing what's exciting about the field
+- `cluster`: Must be one of `Sciences`, `Social Sciences`, `Humanities`, `Applied`, or `Interdisciplinary`
+- `bigQuestion`: A provocative question central to the field
+- `dayInLife`: 2–3 honest sentences about what the coursework actually entails
+- `twoAmTest`: Specific, granular examples of what obsession in this field looks like
+- `careerPaths`: Array of 3–4 real-world paths students ended up taking
+- `relatedMajors`: Array of slugs connecting to other majors in the database
+- `concepts`: Array of two `{ title, explanation }` objects covering fundamental ideas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploying to Vercel is seamless:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push your code to a GitHub repository.
+2. Log into [Vercel](https://vercel.com/) and click **Add New → Project**.
+3. Import your GitHub repository.
+4. Expand the **Environment Variables** section and add `ANTHROPIC_API_KEY` with your secret key.
+5. Click **Deploy**. Vercel will automatically detect the Next.js framework and build the app.

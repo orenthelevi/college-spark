@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
+/* ── Design Tokens ─────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-navy: #0f1729;
+  --color-navy-light: #1a2540;
+  --color-navy-mid: #243056;
+  --color-cream: #f0ece0;
+  --color-cream-muted: #b8b3a4;
+  --color-amber: #d4a853;
+  --color-amber-dim: #b8923f;
+
+  /* Cluster palette */
+  --color-cluster-sciences: #2dd4bf;
+  --color-cluster-social: #a78bfa;
+  --color-cluster-humanities: #d4a853;
+  --color-cluster-applied: #60a5fa;
+  --color-cluster-interdisciplinary: #fb7185;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-navy: var(--color-navy);
+  --color-navy-light: var(--color-navy-light);
+  --color-navy-mid: var(--color-navy-mid);
+  --color-cream: var(--color-cream);
+  --color-cream-muted: var(--color-cream-muted);
+  --color-amber: var(--color-amber);
+  --color-amber-dim: var(--color-amber-dim);
+
+  --color-cluster-sciences: var(--color-cluster-sciences);
+  --color-cluster-social: var(--color-cluster-social);
+  --color-cluster-humanities: var(--color-cluster-humanities);
+  --color-cluster-applied: var(--color-cluster-applied);
+  --color-cluster-interdisciplinary: var(--color-cluster-interdisciplinary);
+
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base Styles ───────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-navy);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Typography ────────────────────────────────────────────────── */
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+h3 {
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+
+p {
+  max-width: 65ch;
+}
+
+/* ── Selection ─────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-navy);
+}
+
+/* ── Focus ─────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-mid);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cream-muted);
+}
+
+/* ── Animations ────────────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
 }
